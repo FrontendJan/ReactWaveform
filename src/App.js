@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./styles.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import Waveform from "./Waveform";
 import PlayList from "./PlayList";
@@ -24,13 +25,15 @@ export default function App() {
 
   return (
     <div className="App">
-      <Waveform url={selectedTrack.url} />
-      <PlayList
-        tracks={tracks}
-        selectedTrack={selectedTrack}
-        setSelectedTrack={setSelectedTrack}
-      />
-      <br />
+      <div className="container w-50">
+        <Waveform url={selectedTrack.url} />
+        <PlayList
+          tracks={tracks}
+          selectedTrack={selectedTrack}
+          setSelectedTrack={setSelectedTrack}
+        />
+        <br />
+      </div>
     </div>
   );
 }
