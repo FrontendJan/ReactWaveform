@@ -1,3 +1,1 @@
-- 3 waveforms ??
-- zoom funguje (poslední waveform)
-- bez časovače
+All good, but without any additional styling or animations whatsoever.
