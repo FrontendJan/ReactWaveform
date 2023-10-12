@@ -31,7 +31,6 @@ export default function App() {
         setSelectedTrack={setSelectedTrack}
       />
       <br />
-      <p>Wavesurfer.js with React.JS</p>
     </div>
   );
 }
