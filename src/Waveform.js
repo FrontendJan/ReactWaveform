@@ -1,21 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import WaveSurfer from "wavesurfer.js";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-const formWaveSurferOptions = (ref) => ({
-  container: ref,
-  waveColor: "#eee",
-  progressColor: "OrangeRed",
-  cursorColor: "OrangeRed",
-  barWidth: 4,
-  barRadius: 3,
-  responsive: true,
-  height: 150,
-  normalize: true,
-  partialRender: true,
-  fillParent: true, // Set fillParent to true
-  minPxPerSec: 1, // Specify the minPxPerSec as needed
-});
+import Loader from "./Loader";
 
 export default function Waveform({ url }) {
   const waveformRef = useRef(null);
@@ -23,8 +9,21 @@ export default function Waveform({ url }) {
   const audioElement = useRef(null); // Define the audio element ref
 
   useEffect(() => {
-    const options = formWaveSurferOptions(waveformRef.current);
-    wavesurfer.current = WaveSurfer.create(options);
+    wavesurfer.current = WaveSurfer.create({
+      container: waveformRef.current,
+      waveColor: "#eee",
+      progressColor: "#0d6efd",
+      cursorColor: "#0d6efd",
+      barWidth: 4,
+      barRadius: 3,
+      responsive: true,
+      height: 150,
+      normalize: true,
+      partialRender: true,
+      fillParent: true,
+      minPxPerSec: 0.1,
+    });
+
     wavesurfer.current.load(url);
 
     wavesurfer.current.on("ready", function () {
@@ -46,7 +45,6 @@ export default function Waveform({ url }) {
 
   const handleAudioTimeUpdate = () => {
     if (wavesurfer.current && audioElement.current) {
-      // Check audioElement
       wavesurfer.current.seekTo(
         audioElement.current.currentTime / audioElement.current.duration
       );
@@ -56,23 +54,26 @@ export default function Waveform({ url }) {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-md-12">
-          <h1>Minimalistic music player</h1>
+        <div className="d-flex flex-row align-items-center justify-content-center my-2">
+          <h1 className="text-center px-3">
+            Minimalistic music <span className="text-primary">player</span>{" "}
+          </h1>
+          <Loader></Loader>
         </div>
-        <div className="col-md-12 d-flex align-items-center justify-content-center">
+        <div className="col-md-12 d-flex align-items-center justify-content-center my-2">
           <div id="waveform" ref={waveformRef} className="w-50"></div>
         </div>
-        <div className="col-md-12">
+        <div className="col-md-12 d-flex align-items-center justify-content-center my-2">
           <audio
             id="audio"
-            ref={audioElement} // Attach the ref
+            ref={audioElement}
             controls
             onTimeUpdate={handleAudioTimeUpdate}
           >
             <source src={url} type="audio/mpeg" />
           </audio>
         </div>
-        <div className="col-md-12 d-flex align-items-center justify-content-center  ">
+        <div className="col-md-12 d-flex align-items-center justify-content-center mb-4">
           <label className="px-1">Zoom </label>
           <input
             type="range"
