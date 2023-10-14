@@ -24,8 +24,8 @@ export default function App() {
   const [selectedTrack, setSelectedTrack] = useState(tracks[0]);
 
   return (
-    <div className="flex-column d-flex align-items-center justify-content-center min-vh-100">
-      <div className="w-50 shadow rounded pt-4">
+    <div className="flex-column d-flex align-items-center justify-content-center wave-bg min-vh-100">
+      <div className="player shadow rounded bg-white pt-4">
         <Waveform url={selectedTrack.url} />
         <PlayList
           tracks={tracks}
